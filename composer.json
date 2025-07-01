@@ -12,6 +12,7 @@
             "email": "cv@pisopay.com.ph"
         }
     ],
+    "license": "Proprietary Company-Only",
     "minimum-stability": "stable",
     "require": {
         "ext-curl": "*",
