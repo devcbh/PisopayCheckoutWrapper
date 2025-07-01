@@ -18,10 +18,6 @@
         "ext-curl": "*",
         "illuminate/support": "^8.0|^9.0|^10.0"
     },
-    "require-dev": {
-        "phpunit/phpunit": "12.3.x-dev",
-        "mockery/mockery": "^1.5"
-    },
     "scripts": {
         "test": "vendor/bin/phpunit"
     },
