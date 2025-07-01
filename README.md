@@ -39,24 +39,32 @@ use Devcbh\CheckoutWrapper\Checkout;
 // Instantiate the class
 $checkout = app(Checkout::class);
 
-// Generate a session
-$sessionId = $checkout->sessionGenerate();
-
 // Generate a token
 $details = [
-    // Payment details
+    array("name" => "itemSample", "price" => "1.00", "quantity" => "1"),
+    array("name" => "itemSample1", "price" => "1.00", "quantity" => "2")
 ];
 $arrayData = [
-    // Required data
+    "branch_code" => "",
+    "amount" => "3",
+    "delivery_fees" => "0",
+    "transaction_type" => "",
+    "processor_name" => "",
+    "customer_name" => "John Doe",
+    "customer_email" => "developer@pisopay.com.ph",
+    "customer_phone" => "09091231234",
+    "customer_address" => "PH",
+    "merchant_trace_no" => "sampleTraceNo12345", //unique trace no 
+    "merchant_callback_url" => "https://pisopay.com.ph/received", //status update webhook
+    "callback_url" => "https://pisopay.com.ph", //redirection after payment and other returns
+    "ip_address" => "192.168.123.1",
+    "expiry_date" => "2027-01-01 00:00:00" // any future date
 ];
 $token = $checkout->generateToken($details, $arrayData);
 
 // Generate a reference number
-$referenceNumber = $checkout->generateReferenceNumber($arrayData);
+$referenceNumber = $checkout->generateReferenceNumber($arrayData, "PPC"); // 2nd param is the channel code
 
-// Create hashes
-$hash = $checkout->hashMaker($time, $merchant_trace_no, $payment_channel_code);
-$hash1 = $checkout->hashMaker1($y, $merchant_trace_no, $time);
 ```
 
 ### Using the Facade
@@ -66,24 +74,32 @@ use Devcbh\CheckoutWrapper\Facades\Checkout;
 // Or use the alias which is automatically registered
 // use Checkout;
 
-// Generate a session
-$sessionId = Checkout::sessionGenerate();
-
 // Generate a token
 $details = [
-    // Payment details
+    array("name" => "itemSample", "price" => "1.00", "quantity" => "1"),
+    array("name" => "itemSample1", "price" => "1.00", "quantity" => "2")
 ];
 $arrayData = [
-    // Required data
+    "branch_code" => "",
+    "amount" => "3",
+    "delivery_fees" => "0",
+    "transaction_type" => "",
+    "processor_name" => "",
+    "customer_name" => "John Doe",
+    "customer_email" => "developer@pisopay.com.ph",
+    "customer_phone" => "09091231234",
+    "customer_address" => "PH",
+    "merchant_trace_no" => "sampleTraceNo12345", //unique trace no 
+    "merchant_callback_url" => "https://pisopay.com.ph/received", //status update webhook
+    "callback_url" => "https://pisopay.com.ph", //redirection after payment and other returns
+    "ip_address" => "192.168.123.1",
+    "expiry_date" => "2027-01-01 00:00:00" // any future date
 ];
 $token = Checkout::generateToken($details, $arrayData);
 
 // Generate a reference number
-$referenceNumber = Checkout::generateReferenceNumber($arrayData);
+$referenceNumber = Checkout::generateReferenceNumber($arrayData, "PPC"); // 2nd param is the channel code
 
-// Create hashes
-$hash = Checkout::hashMaker($time, $merchant_trace_no, $payment_channel_code);
-$hash1 = Checkout::hashMaker1($y, $merchant_trace_no, $time);
 ```
 
 ## Testing
