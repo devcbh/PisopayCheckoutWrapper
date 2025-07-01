@@ -1,6 +1,9 @@
 {
     "name": "devcbh/checkout-wrapper",
-    "description": "A Pisopay Checkout Wrapper for PHP",
+    "description": "A Laravel-friendly wrapper for the Pisopay Checkout API.",
+    "license": "proprietary",
+    "version": "1.0.0",
+
     "autoload": {
         "psr-4": {
             "Devcbh\\CheckoutWrapper\\": "src/"
@@ -12,7 +15,6 @@
             "email": "cv@pisopay.com.ph"
         }
     ],
-    "license": "proprietary",
     "minimum-stability": "stable",
     "require": {
         "ext-curl": "*",
