@@ -1,0 +1,38 @@
+{
+    "name": "devcbh/checkout-wrapper",
+    "description": "A Pisopay Checkout Wrapper for PHP",
+    "autoload": {
+        "psr-4": {
+            "Devcbh\\CheckoutWrapper\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Christian Villegas",
+            "email": "cv@pisopay.com.ph"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "ext-curl": "*",
+        "illuminate/support": "^8.0|^9.0|^10.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "12.3.x-dev",
+        "mockery/mockery": "^1.5"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Devcbh\\CheckoutWrapper\\CheckoutWrapperServiceProvider"
+            ],
+            "aliases": {
+                "Checkout": "Devcbh\\CheckoutWrapper\\Facades\\Checkout"
+            }
+        }
+    }
+
+}
