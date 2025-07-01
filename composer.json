@@ -2,8 +2,7 @@
     "name": "devcbh/checkout-wrapper",
     "description": "A Laravel-friendly wrapper for the Pisopay Checkout API.",
     "license": "proprietary",
-    "version": "1.0.3",
-
+    "version": "1.0.5",
     "autoload": {
         "psr-4": {
             "Devcbh\\CheckoutWrapper\\": "src/"
