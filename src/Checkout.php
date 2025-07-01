@@ -41,7 +41,7 @@ class Checkout
         } else {
             $response = json_decode($response);
             if ($response->status != 0) {
-                return false;
+                throw new \Exception("Cannot Generate Session");
             }
             return $response->data->session_id;
         }
@@ -63,6 +63,8 @@ class Checkout
             "payment" => $details,
             "name" => null, // company name if exists
         )));
+
+        $arrayData["session_id"] = $this->sessionGenerate();
 
         $arrayData["details"] = $details;
 
@@ -101,12 +103,30 @@ class Checkout
     /**
      * GenerateReferenceNumber Function
      *
-     * @param array $arrayData
+     * @param array  $arrayData
+     * @param string $channelCode
      * @return bool|string
      * @author   Christian Villegas <cv@pisopay.com.ph>
      */
-    public function generateReferenceNumber(array $arrayData)
+    public function generateReferenceNumber(array $arrayData, string $channelCode)
     {
+
+        $time = time();
+        $merchant_trace_no = $arrayData["merchant_trace_no"];
+
+        $hd = $this->hashMaker($time, $merchant_trace_no, $channelCode);
+        $hd2 = $this->hashMaker1($hd, $merchant_trace_no, $time);
+
+        $arrayContent = [
+            "merchant_trace_no" => $merchant_trace_no,
+            "ip_address" => request()->ip(),
+            "t" => $time,
+            "sms" => "ON",
+            "hd" => $hd,
+            "hd2" => $hd2,
+            "payment_channel_code" => $channelCode,
+        ];
+
 
         $curl = curl_init();
 
@@ -119,7 +139,7 @@ class Checkout
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => json_encode($arrayData),
+            CURLOPT_POSTFIELDS => json_encode($arrayContent),
             CURLOPT_HTTPHEADER => [
                 "Accept: application/json",
                 "Authorization: Basic $this->creds",
