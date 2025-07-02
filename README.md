@@ -70,9 +70,9 @@ $referenceNumber = $checkout->generateReferenceNumber($arrayData, "PPC"); // 2nd
 ### Using the Facade
 
 ```php
-use Devcbh\CheckoutWrapper\Facades\Checkout;
+//use Devcbh\CheckoutWrapper\Facades\Checkout;
 // Or use the alias which is automatically registered
-// use Checkout;
+use Checkout;
 
 // Generate a token
 $details = [
