@@ -103,12 +103,13 @@ class Checkout
     /**
      * GenerateReferenceNumber Function
      *
-     * @param array  $arrayData
+     * @param array $arrayData
      * @param string $channelCode
+     * @param string|null $securityTokenCC
      * @return bool|string
      * @author   Christian Villegas <cv@pisopay.com.ph>
      */
-    public function generateReferenceNumber(array $arrayData, string $channelCode)
+    public function generateReferenceNumber(array $arrayData, string $channelCode, string $securityTokenCC = null)
     {
 
         $time = time();
@@ -127,6 +128,9 @@ class Checkout
             "payment_channel_code" => $channelCode,
         ];
 
+        if($securityTokenCC == null){
+            $arrayContent["security_token"] = $securityTokenCC;
+        }
 
         $curl = curl_init();
 
