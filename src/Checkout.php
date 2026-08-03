@@ -128,7 +128,7 @@ class Checkout
             "payment_channel_code" => $channelCode,
         ];
 
-        if($securityTokenCC == null){
+        if($securityTokenCC != null){
             $arrayContent["security_token"] = $securityTokenCC;
         }
 
